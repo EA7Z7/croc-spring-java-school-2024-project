@@ -8,6 +8,7 @@ public class Authorizer {
     private static final String CITIZEN = "citizen";
     private static final String EMPLOYEE = "employee";
     private static final Scanner scanner = new Scanner(System.in);
+
     public static void authorize() {
         System.out.println("""
                 Для того, чтобы войти, как гражданин, введите citizen
@@ -29,8 +30,8 @@ public class Authorizer {
         Citizen citizen = new Citizen(scanner.next(), scanner.next(), scanner.next(), scanner.next());
 
         System.out.println("""
-                    Если данные были введены корректно, введите YES
-                    Иначе введите любую другую последовательность символов и авторизуйтесь заново""");
+                Если данные были введены корректно, введите YES
+                Иначе введите любую другую последовательность символов и авторизуйтесь заново""");
 
         if (!"YES".equals(scanner.next())) {
             return false;

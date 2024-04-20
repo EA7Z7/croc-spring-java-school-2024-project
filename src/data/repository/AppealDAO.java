@@ -19,12 +19,12 @@ public class AppealDAO {
             " WHERE citizen_id = ?";
     private static final String SELECT_REQUEST_INFORMATION =
             "SELECT id, citizen_id, status, created_date_time, updated_date_time FROM " +
-            APPEAL_TABLE_NAME +
-            " WHERE status = 'CREATED'";
+                    APPEAL_TABLE_NAME +
+                    " WHERE status = 'CREATED'";
     private static final String SELECT_LAST_REVIEWED_APPEALS =
             "SELECT id, citizen_id, status, created_date_time, updated_date_time FROM " +
-            APPEAL_TABLE_NAME +
-            " WHERE updated_date_time > DATEADD('DAY',-?, CURRENT_TIMESTAMP) AND status <> 'CREATED'";
+                    APPEAL_TABLE_NAME +
+                    " WHERE updated_date_time > DATEADD('DAY',-?, CURRENT_TIMESTAMP) AND status <> 'CREATED'";
     private static final String SELECT_APPEAL_BY_ID = "SELECT * FROM " + APPEAL_TABLE_NAME + " WHERE id = ?";
     private static final String UPDATE_APPEAL_RESPONSE_TEXT = "UPDATE " + APPEAL_TABLE_NAME +
             " SET response_text = ?, status = ?, updated_date_time = CURRENT_TIMESTAMP WHERE id = ?";

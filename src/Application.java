@@ -1,10 +1,4 @@
-import data.entity.Appeal;
-import data.entity.Citizen;
 import data.entity.Employee;
-import data.repository.AppealDAO;
-import data.repository.CitizenDAO;
-import data.repository.EmployeeDAO;
-import data.type.AppealStatus;
 import data.type.UserType;
 import service.Service;
 
@@ -40,7 +34,7 @@ public class Application {
             "(login VARCHAR(100) PRIMARY KEY, " +
             "password VARCHAR(100))";
 
-    private static Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         try (Connection connection = DriverManager.getConnection("jdbc:h2:" + PATH_TO_DATABASE, "egor", "")) {
@@ -54,7 +48,8 @@ public class Application {
                     Для того, чтобы закрыть приложение, введите "stop"
                     """);
             UserType userType;
-            loop: while (true) {
+            loop:
+            while (true) {
                 command = scanner.next();
                 switch (command) {
                     case "citizen":
@@ -76,7 +71,8 @@ public class Application {
                         Чтобы зарегистрироваться, введите "register"
                         Чтобы авторизоваться, введите "login"
                         """);
-                loop: while (true) {
+                loop:
+                while (true) {
                     command = scanner.next();
                     switch (command) {
                         case "register":

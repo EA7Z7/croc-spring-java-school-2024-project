@@ -6,6 +6,7 @@ out/
 *.iws
 *.iml
 *.ipr
+resources/db/*.db
 
 ### Eclipse ###
 .apt_generated

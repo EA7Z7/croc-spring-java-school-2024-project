@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 public final class Appeal {
     private Long id;
-    private Long citizenId;
+    private final Long citizenId;
     private AppealStatus status;
     private String requestText;
     private String responseText;
@@ -45,12 +45,12 @@ public final class Appeal {
         updatedDateTime = LocalDateTime.now();
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getCitizenId() {
