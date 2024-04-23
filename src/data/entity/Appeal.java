@@ -4,21 +4,39 @@ import data.type.AppealStatus;
 
 import java.time.LocalDateTime;
 
+/**
+ * Обращение
+ */
 public final class Appeal {
-    private Long id;
     private final Long citizenId;
-    private AppealStatus status;
+    private Long id;
+    private final AppealStatus status;
     private String requestText;
     private String responseText;
     private LocalDateTime createdDateTime;
     private LocalDateTime updatedDateTime;
 
+    /**
+     * Конструктор
+     *
+     * @param citizenId   id гражданина
+     * @param requestText текст обращения
+     */
     public Appeal(Long citizenId, String requestText) {
         this.citizenId = citizenId;
         this.requestText = requestText;
         this.status = AppealStatus.CREATED;
     }
 
+    /**
+     * Конструктор
+     *
+     * @param id              id обращения
+     * @param citizenId       id гражданина
+     * @param status          статус обращения
+     * @param createdDateTime дата создания обращения
+     * @param updatedDateTime дата обновления обращения
+     */
     public Appeal(Long id, Long citizenId, AppealStatus status, LocalDateTime createdDateTime, LocalDateTime updatedDateTime) {
         this.id = id;
         this.citizenId = citizenId;
@@ -27,6 +45,17 @@ public final class Appeal {
         this.updatedDateTime = updatedDateTime;
     }
 
+    /**
+     * Конструктор
+     *
+     * @param id              id обращения
+     * @param citizenId       id гражданина
+     * @param status          статус обращения
+     * @param requestText     текст обращения
+     * @param responseText    текст ответа
+     * @param createdDateTime дата создания обращения
+     * @param updatedDateTime дата обновления обращения
+     */
     public Appeal(Long id, Long citizenId, AppealStatus status,
                   String requestText, String responseText,
                   LocalDateTime createdDateTime, LocalDateTime updatedDateTime) {
@@ -39,18 +68,8 @@ public final class Appeal {
         this.updatedDateTime = updatedDateTime;
     }
 
-    public void responseAppeal(String responseText, AppealStatus status) {
-        this.responseText = responseText;
-        this.status = status;
-        updatedDateTime = LocalDateTime.now();
-    }
-
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Long getCitizenId() {

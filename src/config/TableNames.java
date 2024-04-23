@@ -1,4 +1,4 @@
-package data.repository.constants;
+package config;
 
 /**
  * Названия таблиц в БД

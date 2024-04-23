@@ -1,0 +1,3 @@
+jdbc:h2:./resources/db/database
+egor
+db
