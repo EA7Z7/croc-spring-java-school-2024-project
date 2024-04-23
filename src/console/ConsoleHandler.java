@@ -1,6 +1,7 @@
 package console;
 
 import data.dto.CitizenContacts;
+import data.dto.ResponseInfo;
 import data.entity.Appeal;
 import data.entity.Citizen;
 import data.entity.Employee;
@@ -108,7 +109,7 @@ public class ConsoleHandler {
                         break loop;
                     }
                     case "statId" -> {
-                        getAppealStatusByAppealId();
+                        getResponseInfoByAppealId();
                         break loop;
                     }
                     case "statPhNumber" -> {
@@ -242,23 +243,27 @@ public class ConsoleHandler {
     }
 
     /**
-     * Выводит статус обращения по id обращения
+     * Выводит статус обращения и текст ответа на обращение по id обращения
      */
-    private void getAppealStatusByAppealId() {
-        AppealStatus appealStatus = null;
-        while (appealStatus == null) {
+    private void getResponseInfoByAppealId() {
+        ResponseInfo responseInfo = null;
+        while (responseInfo == null) {
             long appealId = parseAppealId();
 
             try {
-                appealStatus = citizenService.getAppealStatusByAppealId(appealId);
+                responseInfo = citizenService.getResponseInfoByAppealId(appealId);
             } catch (Exception e) {
-                System.out.println("Произошла ошибка при получении статуса обращения в таблице " + APPEAL_TABLE_NAME + "\n" + e.getMessage());
+                System.out.println("Произошла ошибка при получении статуса обращения и текста ответа в таблице " +
+                        APPEAL_TABLE_NAME + "\n" + e.getMessage());
             }
         }
 
-        switch (appealStatus) {
+        switch (responseInfo.status()) {
             case AppealStatus.CREATED -> System.out.println("Обращение ещё не рассмотрено");
-            case AppealStatus.PROCESSED -> System.out.println("Обращение рассмотрено");
+            case AppealStatus.PROCESSED -> System.out.printf("""
+                    Обращение рассмотрено,
+                    Текст ответа: %s
+                    """, responseInfo.responseText());
             case AppealStatus.REJECTED -> System.out.println("Обращение отклонено");
         }
     }

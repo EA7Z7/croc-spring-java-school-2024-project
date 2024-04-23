@@ -1,11 +1,11 @@
 package service;
 
+import data.dto.ResponseInfo;
 import data.dto.UserRequestsStatuses;
 import data.entity.Appeal;
 import data.entity.Citizen;
 import data.repository.AppealDAO;
 import data.repository.CitizenDAO;
-import data.type.AppealStatus;
 import exception.ServiceException;
 
 import java.sql.Connection;
@@ -51,16 +51,16 @@ public class CitizenService {
     }
 
     /**
-     * Возвращает статус обращения по id обращения
+     * Возвращает статус обращения и текст ответа на обращение по id обращения
      *
      * @param appealId id обращения
-     * @return статус обращения
+     * @return статус обращения и текст ответа на обращение
      */
-    public AppealStatus getAppealStatusByAppealId(long appealId) {
+    public ResponseInfo getResponseInfoByAppealId(long appealId) {
         if (!appealDAO.findAppealById(appealId)) {
             throw new ServiceException(String.format("Обращение с id = %d не найдено", appealId));
         }
-        return appealDAO.getAppealStatusById(appealId);
+        return appealDAO.getResponseInfoById(appealId);
     }
 
     /**

@@ -1,5 +1,6 @@
 package data.repository;
 
+import data.dto.ResponseInfo;
 import data.dto.UserRequestsStatuses;
 import data.entity.Appeal;
 import data.type.AppealStatus;
@@ -17,7 +18,7 @@ import static config.TableNames.APPEAL_TABLE_NAME;
 public class AppealDAO {
     private static final String INSERT_APPEAL = "INSERT INTO " + APPEAL_TABLE_NAME +
             " (citizen_id, status, request_text) VALUES (?,?,?)";
-    private static final String SELECT_APPEAL_STATUS_BY_ID = "SELECT status FROM " + APPEAL_TABLE_NAME + " WHERE id = ?";
+    private static final String SELECT_RESPONSE_INFO_BY_ID = "SELECT status, response_text FROM " + APPEAL_TABLE_NAME + " WHERE id = ?";
     private static final String SELECT_APPEAL_STATUS_BY_PHONE_NUMBER = "SELECT id, status FROM " +
             APPEAL_TABLE_NAME +
             " WHERE citizen_id = ?";
@@ -101,20 +102,21 @@ public class AppealDAO {
     }
 
     /**
-     * Возвращает статус обращения по id обращения
+     * Возвращает статус обращения и текст ответа на обращение по id обращения
      *
      * @param appealId id обращения
-     * @return статус обращения
+     * @return статус обращения и текст ответа на обращение
      */
-    public AppealStatus getAppealStatusById(long appealId) {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_APPEAL_STATUS_BY_ID)) {
+    public ResponseInfo getResponseInfoById(long appealId) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_RESPONSE_INFO_BY_ID)) {
             preparedStatement.setLong(1, appealId);
             try (ResultSet result = preparedStatement.executeQuery()) {
                 result.next();
-                return AppealStatus.valueOf(result.getString("status"));
+                return new ResponseInfo(AppealStatus.valueOf(result.getString("status")),
+                        result.getString("response_text"));
             }
         } catch (SQLException e) {
-            throw new DAOException(SELECT_APPEAL_STATUS_BY_ID, e);
+            throw new DAOException(SELECT_RESPONSE_INFO_BY_ID, e);
         }
     }
 
